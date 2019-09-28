@@ -16,8 +16,7 @@ void swap(int array[], int i, int j)
 
 void permutation(int i, int n, int weight, int* path, int distance[][n], int* bestPath) //  it can be int path[] or int* path. those are same
 {
-	int j;
-    
+    int j;
     if (i == n)                 //base case for recursion, ONCE IT EXAMINE ONE  POSSIBLE ROUTE, AND CHECK THE IF STATEMENT AND IF IT IS TRUE, THEN UPDATE THE MINWEIGHT AND BESTPATH
     {
         if(minWeight > weight) // IF THE ROUTE IS SMALLER THAN THE PREVIOUS ONE, THEN 
@@ -35,22 +34,18 @@ void permutation(int i, int n, int weight, int* path, int distance[][n], int* be
         for (j = i; j < n; j++)                      
         {
             int w = 0;                              
-    
             w = distance[path[i - 1]][path[j]];     
-            
             swap(path, i, j);                       
             permutation(i + 1, n, weight + w, path, distance, bestPath);       
             swap(path, i, j);                       
-            
         }
     }
 }
 
 void printingResult(int n, int* bestPath, int minWeight)
 {	
-	int i;
-	
-	printf("Shortest path is:\n");
+    int i;
+    printf("Shortest path is:\n");
     for(i = 0 ; i < n; i++)
     {
         printf("%d ", bestPath[i]);
@@ -65,31 +60,30 @@ int main(int argc, char* argv[]) // tsm 5 citis5.txt     argv[0] = tsm 		argv[1]
     int j;
     
     int n = atoi(argv[1]); // FROM THE COMMAND LINE INPUT, TAKE THE CITY NUMBER, AND CHANGE THE "STRING" TYPE TO INT
-    
-	int path[n]; // path 
+    int path[n]; // path 
     int distance[n][n]; // WE READ THE FILE AND PUT IT IN TO 2D ARRAY
     
     int bestPath[n]; // bestpath
 
-	//INITIALIZING THE PATH AND BESTPATH
+    //INITIALIZING THE PATH AND BESTPATH
     for (i = 0; i < n; i++)
     {
         path[i] = i;      // INITIALIZING THE PATH WITH THE NUMBER OF CITY
         bestPath[i] = 0; // initialize the bestPath
     }
     
-	//FILE SCANNING PART
-	FILE *fptr;
+    //FILE SCANNING PART
+    FILE *fptr;
     char* filename = argv[2];
     fptr = fopen(filename, "r"); // now the file pointer fp pointing to the filename
     
     if (fptr == NULL){
         printf ("failed to open the file: %s", filename);
     }
-    for (i = 0; i < n; i++) {
-
+    for (i = 0; i < n; i++)
+    {
         for (j = 0; j < n; j++) 
-		{
+	{
             fscanf (fptr, "%d", &distance[i][j]);  // fp scan decimal values and put those into 2darray 
         }
     }
@@ -100,7 +94,6 @@ int main(int argc, char* argv[]) // tsm 5 citis5.txt     argv[0] = tsm 		argv[1]
     
     // PRINT the result
     printingResult(n, bestPath, minWeight); 
-    
     return 0;
 }
 
